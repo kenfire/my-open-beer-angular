@@ -596,12 +596,25 @@ module.exports = function ($routeProvider, $locationProvider, $httpProvider) {
         }).when('/breweries/update', {
             templateUrl: 'templates/breweries/breweryForm.html',
             controller: 'BreweryUpdateController'
-        }).when('/saves', {
-            templateUrl: 'templates/saveMain.html',
-            controller: 'SaveController'
-        }).when('/beers', {
+        })
+
+        .when('/beers', {
             templateUrl: 'templates/beers/main.html',
             controller: 'BeersController'
+        }).when('/beers/refresh', {
+            templateUrl: 'templates/beers/main.html',
+            controller: 'BeersController'
+        }).when('/beers/new', {
+            templateUrl: 'templates/beers/beerForm.html',
+            controller: 'BeerAddController'
+        }).when('/beers/update', {
+            templateUrl: 'templates/beers/beerForm.html',
+            controller: 'BeerUpdateController'
+        })
+        
+        .when('/saves', {
+            templateUrl: 'templates/saveMain.html',
+            controller: 'SaveController'
         }).when('/config', {
             templateUrl: 'templates/config.html',
             controller: 'ConfigController'
@@ -625,6 +638,7 @@ module.exports=function($scope,config,$location){
 		if($scope.frmConfig.$dirty){
 			config.server=$scope.config.server;
 			config.breweries=$scope.config.breweries;
+			config.beers=$scope.config.beers;
 		}
 		$location.path("/");
 	};
@@ -634,14 +648,22 @@ module.exports=function($scope,config,$location){
 };
 },{}],17:[function(require,module,exports){
 module.exports=function() {
-	var factory={breweries:{},server:{}};
+	var factory={breweries:{},beers:{},server:{}};
+    //Beer
+    factory.activeBeer=undefined;
+    factory.beers.loaded=false;
+    factory.beers.refresh="all";//all|ask
+    factory.beers.update="immediate";//deffered|immediate
+    //Brewery
 	factory.activeBrewery=undefined;
 	factory.breweries.loaded=false;
 	factory.breweries.refresh="all";//all|ask
 	factory.breweries.update="immediate";//deffered|immediate
+    //Server
 	factory.server.privateToken="";
 	factory.server.restServerUrl="http://127.0.0.1/rest-open-beer/";
 	factory.server.force=false;
+
 	return factory;
 };
 },{}],18:[function(require,module,exports){
