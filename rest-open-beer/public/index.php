@@ -22,7 +22,7 @@ $app = App::instance();
 //Set up the database service
 $app->di->set('db', function(){
 	return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
-			"host" => "127.0.0.1",
+			"host" => "localhost",
 			"username" => "root",
 			"password" => "",
 			"dbname" => "open-beer",
