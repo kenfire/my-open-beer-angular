@@ -1,3 +1,6 @@
+/**
+ * Created by kenzo on 24/03/2015.
+ */
 module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
     $scope.data={load:false};
 

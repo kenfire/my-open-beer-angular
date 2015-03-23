@@ -12,7 +12,7 @@ module.exports=function() {
 	factory.breweries.update="immediate";//deffered|immediate
     //Server
 	factory.server.privateToken="";
-	factory.server.restServerUrl="http://localhost:8888/my-open-beer-angular/rest-open-beer/";
+	factory.server.restServerUrl="http://localhost:8080/my-open-beer-angular/rest-open-beer/";
 	factory.server.force=false;
 
 	return factory;
