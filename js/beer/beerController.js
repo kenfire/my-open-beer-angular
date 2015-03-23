@@ -1,3 +1,6 @@
+/**
+ * Created by kenzo on 24/03/2015.
+ */
 module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
     $scope.data={load:false};
 
@@ -23,10 +26,6 @@ module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
     $scope.refresh=function(){
         save.executeAll();
     }
-
-    $scope.showInfo=function(){
-        return angular.isDefined($scope.activeBeer);
-    };
 
     $scope.showUpdate=function(){
         return angular.isDefined($scope.activeBeer);
@@ -82,14 +81,6 @@ module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
             }
         });
     };
-
-    $scope.info=function(beer){
-        if(angular.isDefined(beer))
-            $scope.activeBeer=beer;
-        config.activeBeer=angular.copy($scope.activeBeer);
-        config.activeBeer.reference=$scope.activeBeer;
-        $location.path("beers/information");
-    }
 
     $scope.edit=function(beer){
         if(angular.isDefined(beer))
