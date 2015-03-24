@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">{{ brewery.name }}</div>
+    <div class="panel-body">
+
+        <b>Nom :</b>{{ brewery.name }}<br><br>
+        <b>URL :</b><br>{{ brewery.url }}<br><br>
+        <b>Date de création :</b>{{ brewery.created_at }}
+        <b>Date de mise à jour :</b>{{ brewery.updated_at }}<br>
+        <br>
+        <div class="btn-group" role="group">
+            <a class="btn btn-default" ng-click="showBeers()">Voir les bières</a>
+        </div>
+    </div>
+</div>
+<div class="btn-group" role="group">
+    <a class="btn btn-default" href="breweries">Retour à la liste des brasserie</a>
+</div>

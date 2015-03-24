@@ -22,7 +22,11 @@ module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
 	
 	$scope.refresh=function(){
 		save.executeAll();
-	}
+	};
+
+	$scope.showInfo=function(){
+		return angular.isDefined($scope.activeBrewery);
+	};
 	
 	$scope.showUpdate=function(){
 		return angular.isDefined($scope.activeBrewery);
@@ -77,6 +81,14 @@ module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
 				value.deleted=false;
 			}
 		});
+	};
+
+	$scope.info=function(brewery){
+		if(angular.isDefined(brewery))
+			$scope.activeBrewery=brewery;
+		config.activeBrewery=angular.copy($scope.activeBrewery);
+		config.activeBrewery.reference=$scope.activeBrewery;
+		$location.path("breweries/information");
 	};
 	
 	$scope.edit=function(brewery){
