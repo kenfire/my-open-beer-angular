@@ -11,6 +11,21 @@
                id="url" name="url">
         <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
     </div>
+
+    <div class="form-group" data-ng-class="{'has-error has-feedback': frmBeer.url.$invalid && frmBeer.url.$dirty }">
+        <label for="url">Description</label>
+        <textarea class="form-control" name="description" id="description" rows="3" data-ng-model="activeBeer.url"
+                  placeholder="Entrez une description" required></textarea>
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+    </div>
+
+    <div class="form-group" data-ng-class="{'has-error has-feedback': frmBeer.url.$invalid && frmBeer.url.$dirty }">
+        <label for="url">Brasseur</label>
+        <input class="form-control" type="url" data-ng-model="activeBeer.beer" placeholder="Entrez un brasseur" required
+               id="beer" name="beer">
+        <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+    </div>
+
     <div class="form-group">
         <label for="created_at">Date de création</label>
         <input class="form-control" type="text" data-ng-model="activeBeer.created_at" id="created_at" name="created_at"
