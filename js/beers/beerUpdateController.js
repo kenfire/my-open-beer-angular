@@ -15,17 +15,17 @@ module.exports = function ($scope, config, $location, rest, save, $document, mod
                 config.activeBeer = angular.copy(beer);
                 config.activeBeer.reference = beer;
             }
-            $scope.data.posted={
-                "name" : beer.name,
-                "description" : beer.description,
-                "idBrewery" : beer.idBrewery,
-                "nameBrewery" : beer.nameBrewery
+            $scope.data.posted = {
+                "name": beer.name,
+                "description": beer.description,
+                "idBrewery": beer.idBrewery,
+                "nameBrewery": beer.nameBrewery
             };
 
             config.activeBeer.reference.name = $scope.activeBeer.name;
             config.activeBeer.reference.description = $scope.activeBeer.description
-            config.activeBeer.reference.idBrewery=$scope.activeBeer.idBrewery;
-            config.activeBeer.reference.nameBrewery=$scope.activeBeer.nameBrewery;
+            config.activeBeer.reference.idBrewery = $scope.activeBeer.idBrewery;
+            config.activeBeer.reference.nameBrewery = $scope.activeBeer.nameBrewery;
 
             config.activeBeer.reference.updated_at = new Date();
 

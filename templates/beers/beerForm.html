@@ -16,7 +16,8 @@
 
     <div class="form-group" data-ng-class="{'has-error has-feedback': frmBeer.brewery.$invalid && frmBeer.brewery.$dirty }">
         <label for="idB">Brasseur Id</label>
-        <input class="form-control" type="text" data-ng-model="activeBeer.idBrewery" required id="idB" name="IdB">
+        <input class="form-control" type="text" data-ng-model="getBreweryName(activeBeer.idBrewery)" required id="idB"
+               name="IdB">
         <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
     </div>
 
