@@ -1,112 +1,46 @@
-module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
-    $scope.data={load:false};
+module.exports=function($scope,config,$location,rest,save,$document,modalService) {
 
-    $scope.sortBy={field:"name",asc:false};
-
-    $scope.messages=rest.messages;
-
-    if(config.beers.refresh==="all" || !config.beers.loaded){
-        $scope.data.load=true;
-        rest.getAll($scope.data,"beers");
-        config.beers.loaded=true;
-    }else{
-        $scope.data["beers"]=config.beers.all;
-    }
-    $scope.allSelected=false;
-
-    $scope.selectAll=function(){
-        angular.forEach($scope.data.beers, function(value, key) {
-            value.selected=$scope.allSelected;
-        });
+    $scope.data={};
+    $scope.data["beers"]=config.beers.all;
+    var self=this;
+    var selfScope=$scope;
+    $scope.setFormScope=function(form){
+        $scope.frmBeer=form;
     };
+    var onRouteChangeOff=$scope.$on('$locationChangeStart', function routeChange(event, newUrl, oldUrl) {
+        if (!$scope.frmBeer || !$scope.frmBeer.$dirty || $scope.exit) return;
 
-    $scope.refresh=function(){
-        save.executeAll();
-    }
-
-    $scope.showInfo=function(){
-        return angular.isDefined($scope.activeBeer);
-    };
-
-    $scope.showUpdate=function(){
-        return angular.isDefined($scope.activeBeer);
-    };
-
-    $scope.refreshOnAsk=function(){
-        return config.beers.refresh == 'ask';
-    };
-
-    $scope.defferedUpdate=function(){
-        return config.beers.update == 'deffered';
-    };
-
-    $scope.setActive=function(beer){
-        if(beer!==$scope.activeBeer)
-            $scope.activeBeer=beer;
-        else
-            $scope.activeBeer=undefined;
-    };
-
-    $scope.isActive=function(beer){
-        return beer==$scope.activeBeer;
-    };
-
-    $scope.hasMessage=function(){
-        return rest.messages.length>0;
-    };
-
-    $scope.readMessage=function(message){
-        $timeout(function(){
-            message.deleted=true;
-        },5000);
-        return true;
-    }
-
-    $scope.countSelected=function(){
-        var result=0;
-        angular.forEach($scope.data.beers, function(value, key) {
-            if(value.selected && !value.deleted)
-                result++;
-        });
-        return result;
-    };
-
-    $scope.hideDeleted=function(){
-        $scope.mustHideDeleted=!$scope.mustHideDeleted;
-        angular.forEach($scope.data.beers, function(value, key) {
-            if($scope.mustHideDeleted){
-                if(value.flag==='Deleted')
-                    value.deleted=true;
-            }else{
-                value.deleted=false;
+        var alert = modalService.showModal("Sortie","<b>Attention</b>, si vous continuez, vous perdez les modifications en cours.<br>Enregistrer avant sortie ?",function(value){
+                selfScope.exit=true;
+                if(value=="Enregistrer et continuer"){
+                    onRouteChangeOff();
+                    if(selfScope._update()==true){
+                        $location.path(newUrl.substring($location.absUrl().length - $location.url().length));
+                    }
+                }else if(value=="Continuer"){
+                    console.log(value);
+                    onRouteChangeOff();
+                    $location.path(newUrl.substring($location.absUrl().length - $location.url().length));
+                }
             }
-        });
-    };
-
-    $scope.info=function(beer){
-        if(angular.isDefined(beer))
-            $scope.activeBeer=beer;
-        config.activeBeer=angular.copy($scope.activeBeer);
-        config.activeBeer.reference=$scope.activeBeer;
-        $location.path("beers/information");
-    }
-
-    $scope.edit=function(beer){
-        if(angular.isDefined(beer))
-            $scope.activeBeer=beer;
-        config.activeBeer=angular.copy($scope.activeBeer);
-        config.activeBeer.reference=$scope.activeBeer;
-        $location.path("beers/update");
-    }
+        );
+        event.preventDefault();
+        return;
+    });
 
     $scope.update=function(beer,force,callback){
+        if($scope._update(beer,force,callback)==true){
+            $location.path("beers");
+        }
+    };
+    $scope._update=function(beer,force,callback){
+        var result=false;
         if(angular.isUndefined(beer)){
             beer=$scope.activeBeer;
         }
-        $scope.data.posted={ "beer" : {
+        $scope.data.posted={
             "name" : beer.name,
             "url"  : beer.url
-        }
         };
         $scope.data.beers.push(beer);
         beer.created_at=new Date();
@@ -114,25 +48,8 @@ module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
             rest.post($scope.data,"beers",beer.name,callback);
         }else{
             save.addOperation("New",$scope.update,beer);
-            $location.path("beers");
+            result=true;
         }
-    }
-
-    $scope.remove=function(){
-        angular.forEach($scope.data.beers, function(value, key) {
-            if(value.selected){
-                $scope.removeOne(value);
-            }
-        });
-        return true;
-    };
-    $scope.removeOne=function(beer,force,callback){
-        if(config.beers.update==="immediate" || force){
-            beer.deleted=true;
-            rest.remove(beer,"beers",callback);
-        }else{
-            save.addOperation("Deleted",$scope.removeOne,beer);
-            beer.deleted=$scope.hideDeleted;
-        }
+        return result;
     }
 };
