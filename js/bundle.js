@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\drag.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports=function() {
 	return {
 		restrict: 'A',
@@ -8,7 +8,7 @@ module.exports=function() {
 		}
 	};
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\modal.js":[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 module.exports=function($q) {
 	return {
 		restrict:'E',
@@ -62,7 +62,7 @@ module.exports=function($q) {
 		}
 	};
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\modalService.js":[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 module.exports=function($q,$compile,$rootScope,$sce){
 	
     this.showModal=function(title,content,then){
@@ -85,7 +85,7 @@ module.exports=function($q,$compile,$rootScope,$sce){
     	this.scope.showDialog=true;
     }
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\notDeletedFilter.js":[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports= function() {
 	return function( items) {
         var filtered = [];
@@ -97,7 +97,7 @@ module.exports= function() {
         return filtered;
     };
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\sortBy.js":[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 module.exports=function(){
 	return {
 		restrict: "A",
@@ -136,7 +136,7 @@ module.exports=function(){
 		}
 	};
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\app.js":[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 angular.module("mainApp", ["ngRoute", "ngResource", "ngAnimate", require("./breweries/breweriesModule"), require("./beers/beersModule"), require("./config/configModule")]).
     controller("MainController", ["$scope", "$location", "save", "$window", require("./mainController")]).
     controller("SaveController", ["$scope", "$location", "save", require("./save/saveController")]).
@@ -171,7 +171,7 @@ angular.module("mainApp", ["ngRoute", "ngResource", "ngAnimate", require("./brew
     }]
 ).factory("config", require("./config/configFactory"));
 
-},{"./addons/drag":"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\drag.js","./addons/modal":"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\modal.js","./addons/modalService":"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\modalService.js","./addons/notDeletedFilter":"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\notDeletedFilter.js","./addons/sortBy":"C:\\wamp\\www\\my-open-beer-angular\\js\\addons\\sortBy.js","./beers/beersModule":"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beersModule.js","./breweries/breweriesModule":"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweriesModule.js","./config":"C:\\wamp\\www\\my-open-beer-angular\\js\\config.js","./config/configFactory":"C:\\wamp\\www\\my-open-beer-angular\\js\\config\\configFactory.js","./config/configModule":"C:\\wamp\\www\\my-open-beer-angular\\js\\config\\configModule.js","./mainController":"C:\\wamp\\www\\my-open-beer-angular\\js\\mainController.js","./save/saveController":"C:\\wamp\\www\\my-open-beer-angular\\js\\save\\saveController.js","./services/rest":"C:\\wamp\\www\\my-open-beer-angular\\js\\services\\rest.js","./services/save":"C:\\wamp\\www\\my-open-beer-angular\\js\\services\\save.js"}],"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beerAddController.js":[function(require,module,exports){
+},{"./addons/drag":1,"./addons/modal":2,"./addons/modalService":3,"./addons/notDeletedFilter":4,"./addons/sortBy":5,"./beers/beersModule":11,"./breweries/breweriesModule":14,"./config":17,"./config/configFactory":19,"./config/configModule":20,"./mainController":21,"./save/saveController":22,"./services/rest":23,"./services/save":24}],7:[function(require,module,exports){
 module.exports=function($scope,config,$location,rest,save,$document,modalService) {
 
     $scope.data={};
@@ -227,15 +227,19 @@ module.exports=function($scope,config,$location,rest,save,$document,modalService
         return result;
     }
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beerAffichageController.js":[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 module.exports=function($scope,config,$location){
     $scope.beer = config.activeBeer;
     if (angular.isUndefined(config.activeBeer)) {
         $location.path("beers/");
+    } else {
+        if ($scope.beer.photo == null || $scope.beer.photo == "") {
+            $scope.beer.photo = "biere.png";
+        }
     }
 
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beerUpdateController.js":[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = function ($scope, config, $location, rest, save, $document, modalService, $controller) {
     $controller('BeerAddController', {$scope: $scope});
 
@@ -275,7 +279,7 @@ module.exports = function ($scope, config, $location, rest, save, $document, mod
         return result;
     }
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beersController.js":[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
     $scope.data={load:false};
 
@@ -422,7 +426,7 @@ module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
         $location.path("beer/");
     }
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beersModule.js":[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var appBeers=angular.module("BeersApp", []).
 controller("BeersController", ["$scope","rest","$timeout","$location","config","$route","save",require("./beersController")]).
 controller("BeerAddController",["$scope","config","$location","rest","save","$document","modalService",require("./beerAddController")]).
@@ -431,7 +435,7 @@ controller("BeerAffichageController",["$scope","config","$location",require("./b
 module.exports=angular.module("BeersApp").name;
 
 
-},{"./beerAddController":"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beerAddController.js","./beerAffichageController":"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beerAffichageController.js","./beerUpdateController":"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beerUpdateController.js","./beersController":"C:\\wamp\\www\\my-open-beer-angular\\js\\beers\\beersController.js"}],"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\brewerieAffichageController.js":[function(require,module,exports){
+},{"./beerAddController":7,"./beerAffichageController":8,"./beerUpdateController":9,"./beersController":10}],12:[function(require,module,exports){
 module.exports=function($scope,config,$location){
     $scope.brewery = config.activeBrewery;
     if (angular.isUndefined(config.activeBrewery)) {
@@ -440,7 +444,7 @@ module.exports=function($scope,config,$location){
 
 };
 
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweriesController.js":[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
 	$scope.data={load:false};
 
@@ -579,14 +583,14 @@ module.exports=function($scope,rest,$timeout,$location,config,$route,save) {
 		}
 	}
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweriesModule.js":[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var appBreweries=angular.module("BreweriesApp", []).
 controller("BreweriesController", ["$scope","rest","$timeout","$location","config","$route","save",require("./breweriesController")]).
 controller("BreweryAddController",["$scope","config","$location","rest","save","$document","modalService",require("./breweryAddController")]).
 controller("BreweryUpdateController",["$scope","config","$location","rest","save","$document","modalService","$controller",require("./breweryUpdateController")]).
     controller("BrewerieAffichageController",["$scope","config","$location",require("./brewerieAffichageController")]);
 module.exports=angular.module("BreweriesApp").name;
-},{"./brewerieAffichageController":"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\brewerieAffichageController.js","./breweriesController":"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweriesController.js","./breweryAddController":"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweryAddController.js","./breweryUpdateController":"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweryUpdateController.js"}],"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweryAddController.js":[function(require,module,exports){
+},{"./brewerieAffichageController":12,"./breweriesController":13,"./breweryAddController":15,"./breweryUpdateController":16}],15:[function(require,module,exports){
 module.exports=function($scope,config,$location,rest,save,$document,modalService) {
 	
 	$scope.data={};
@@ -642,7 +646,7 @@ module.exports=function($scope,config,$location,rest,save,$document,modalService
 		return result;
 	}
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\breweries\\breweryUpdateController.js":[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = function ($scope, config, $location, rest, save, $document, modalService, $controller) {
     $controller('BreweryAddController', {$scope: $scope});
 
@@ -682,7 +686,7 @@ module.exports = function ($scope, config, $location, rest, save, $document, mod
         return result;
     }
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\config.js":[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = function ($routeProvider, $locationProvider, $httpProvider) {
     //$httpProvider.defaults.useXDomain = true;
     //$httpProvider.defaults.withCredentials = true;
@@ -743,7 +747,7 @@ module.exports = function ($routeProvider, $locationProvider, $httpProvider) {
         $locationProvider.html5Mode(true);
     }
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\config\\configController.js":[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports=function($scope,config,$location){
 
 	$scope.config=angular.copy(config);
@@ -764,7 +768,7 @@ module.exports=function($scope,config,$location){
 		$location.path("/");
 	};
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\config\\configFactory.js":[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports=function() {
 	var factory={breweries:{},beers:{},server:{}};
     //Beer
@@ -784,11 +788,11 @@ module.exports=function() {
 
 	return factory;
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\config\\configModule.js":[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 var configApp=angular.module("ConfigApp", []).
 controller("ConfigController", ["$scope","config","$location",require("./configController")]);
 module.exports=configApp.name;
-},{"./configController":"C:\\wamp\\www\\my-open-beer-angular\\js\\config\\configController.js"}],"C:\\wamp\\www\\my-open-beer-angular\\js\\mainController.js":[function(require,module,exports){
+},{"./configController":18}],21:[function(require,module,exports){
 module.exports=function($scope,$location,save,$window) {
 	
 	$scope.hasOperations=function(){
@@ -811,7 +815,7 @@ module.exports=function($scope,$location,save,$window) {
 	});
 	
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\save\\saveController.js":[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports=function($scope,$location,save){
 	$scope.data=save;
 	$scope.allSelected=false;
@@ -851,7 +855,7 @@ module.exports=function($scope,$location,save){
 		return true;
 	};
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\services\\rest.js":[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports=function($http,$resource,$location,restConfig,$sce) {
 	var self=this;
 	if(angular.isUndefined(this.messages))
@@ -954,7 +958,7 @@ module.exports=function($http,$resource,$location,restConfig,$sce) {
 		self.messages.length=0;
 	};
 };
-},{}],"C:\\wamp\\www\\my-open-beer-angular\\js\\services\\save.js":[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports=function(rest,config,$route){
 	var self=this;
 	this.dataScope={};
@@ -997,4 +1001,4 @@ module.exports=function(rest,config,$route){
 		}
 	}
 };
-},{}]},{},["C:\\wamp\\www\\my-open-beer-angular\\js\\app.js"]);
+},{}]},{},[6]);
